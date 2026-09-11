@@ -26,3 +26,43 @@ function addRecord() {
 // 入口：先录入2条
 addRecord();
 addRecord();
+/**
+ * filterByType - filter：筛选指定类别的记录
+ * @param {string} t 类别名
+ */
+function filterByType(t) {
+  return records.filter(r => r.type === t);
+}
+
+/**
+ * getTotalSpend - reduce：算总花费
+ */
+function getTotalSpend() {
+  return records.reduce((sum, r) => sum + r.money, 0);
+}
+
+/**
+ * formatList - map：把对象数组转成可读字符串数组
+ */
+function formatList() {
+  return records.map(r => `${r.type} ¥${r.money} ${r.desc}`);
+}
+
+/**
+ * printReport：输出完整记账报告到控制台
+ */
+function printReport() {
+  if (records.length === 0) {
+    console.log("暂无消费记录");
+    return;
+  }
+  console.log("=== 全部记录 ===");
+  console.log(formatList());
+  console.log("=== 总花费 ===");
+  console.log(`¥${getTotalSpend()}`);
+  console.log("=== 餐饮类 ===");
+  console.log(filterByType("餐饮"));
+}
+
+// 打印报告
+printReport();
